@@ -61,7 +61,7 @@
 - name : add rabbitmq user and give permissions
   community.rabbitmq.rabbitmq_user:
     user: "{{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.amqp_user', region='us-east-1') }}"
-    password: "{{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.amqp_password', region='us-east-1') }}"
+    password: "{{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.amqp_pass', region='us-east-1') }}"
     vhost: /
     configure_priv: .*
     read_priv: .*
