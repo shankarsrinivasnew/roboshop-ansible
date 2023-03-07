@@ -36,7 +36,7 @@
         name: mongodb-org-shell
 
     - name: loading mongodb schema
-      ansible.builtin.shell: mongo --host dev-mongodb.sstech.store </app/schema/{{component}}.js
+      ansible.builtin.shell: mongo --host mongodb-dev.sstech.store </app/schema/{{component}}.js
 
 - name: mysql schema
   when: schema_type == "mysql"
@@ -46,5 +46,5 @@
         name: mysql
         state: installed
     - name: loading mysql schema
-      ansible.builtin.shell: mysql -h dev-mysql.sstech.store -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
+      ansible.builtin.shell: mysql -h mysql-dev.sstech.store -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
 
