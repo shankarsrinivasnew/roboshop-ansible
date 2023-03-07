@@ -60,8 +60,8 @@
 
 - name : add rabbitmq user and give permissions
   community.rabbitmq.rabbitmq_user:
-    user: roboshop
-    password: roboshop123
+    user: "{{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.ampq_user', region='us-east-1') }}"
+    password: "{{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.ampq_password', region='us-east-1') }}"
     vhost: /
     configure_priv: .*
     read_priv: .*
