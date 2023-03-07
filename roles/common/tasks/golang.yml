@@ -1,0 +1,33 @@
+# golang (){
+# print_header "Installing golong" 
+# yum install golang -y  &>>${log_file}
+# status_check $?
+
+# app_user_setup
+
+# print_header "installing dependencies"
+# go mod init dispatch  &>>${log_file}
+# go get  &>>${log_file}
+# go build  &>>${log_file}
+# status_check $?
+
+# systemd_setup
+# }
+
+- name: installing golang
+  ansible.builtin.yum:
+    name: golang
+    state: installed
+
+- name: app user setup
+  ansible.builtin.import_tasks:
+    file: app_user.yml
+
+- name: installing dependencies golong
+  ansible.builtin.shell: go mod init dispatch; go get; go build
+  args:
+    chdir: /app
+
+- name : systemd setup
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml

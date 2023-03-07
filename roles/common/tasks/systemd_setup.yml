@@ -1,0 +1,39 @@
+# systemd_setup () {
+# print_header "adding systemd file"
+# cp ${code_dir}/configs/$component.service /etc/systemd/system/$component.service  &>>${log_file}
+# status_check $?
+
+# if [ "${component}" == "payment" ] || [ "${component}" == "dispatch" ]; then
+# print_header " adding roboshop app password to systemd file for payment service"
+# sed -i -e "s/roboshop_app_password/${roboshop_password}/" /etc/systemd/system/${component}.service &>>{log_file}
+# fi
+# status_check $?
+
+
+# print_header "starting systemd service of app"
+# systemctl daemon-reload  &>>${log_file}
+# systemctl enable $component  &>>${log_file}
+# systemctl restart $component  &>>${log_file}
+# status_check $?
+
+# }
+
+- name : adding systemd file
+  ansible.builtin.template:
+    src: "{{component}}.service"
+    dest: /etc/systemd/system/{{component}}.service
+
+- name: adding roboshop app password to systemd file for payment/dispatch service
+  ansible.builtin.replace:
+    path: /etc/systemd/system/{{component}}.service
+    regexp: 'roboshop_app_password'
+    replace: 'roboshop123'
+  when: component == "payment" or component == "dispatch"
+
+- name : starting systemd service of ((component))
+  ansible.builtin.systemd:
+    name: "{{component}}"
+    state: restarted
+    enabled : true
+    daemon_reload: true
+      

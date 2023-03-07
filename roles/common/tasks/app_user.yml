@@ -1,0 +1,51 @@
+# app_user_setup () {
+# print_header "adding user"
+# id roboshop &>>${log_file}
+# if [ $? -ne 0 ]; then
+# useradd roboshop &>>${log_file}
+# fi
+# status_check $?
+
+# print_header "adding new directory"
+# if [ ! -d /app ]; then
+# mkdir /app &>>${log_file}
+# fi
+# status_check $?
+
+# print_header "removing old content"
+# rm -rvf /app/* &>>${log_file}
+# status_check $?
+
+# print_header "downloading new code"
+# curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip  &>>${log_file}
+# status_check $?
+
+# print_header "unzipping new code"
+# cd /app
+# unzip /tmp/$component.zip &>>${log_file}
+# status_check $?
+# }
+
+- name: add roboshop user
+  ansible.builtin.user:
+    name: roboshop
+
+- name : delete old app directory
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: create app directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: download new code and extract {{component}}
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+    dest: /app
+    remote_src: yes
+
+
+
+

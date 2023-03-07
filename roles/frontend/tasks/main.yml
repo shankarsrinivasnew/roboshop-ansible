@@ -1,0 +1,64 @@
+# source common.sh
+
+# print_header "Installing nginx"
+# yum install nginx -y &>>${log_file}
+# status_check $?
+
+# print_header "enabling service"
+# systemctl enable nginx &>>${log_file}
+# systemctl start nginx &>>${log_file}
+# status_check $?
+
+# print_header "Removing old code"
+# rm -rvf /usr/share/nginx/html/* &>>${log_file}
+# status_check $?
+
+# print_header "downloading new code"
+# curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip  &>>${log_file}
+# status_check $?
+
+# print_header "copying new code"
+# cd /usr/share/nginx/html 
+# unzip /tmp/frontend.zip  &>>${log_file}
+# cp ${code_dir}/configs/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf &>>${log_file}
+# status_check $?
+
+# print_header "restarting nginx"
+# systemctl restart nginx &>>${log_file}
+# status_check $?
+
+- name : install inginx
+  ansible.builtin.yum:
+    name: nginx
+    state: installed
+
+- name : remove old content
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name : creating app content directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name : downloading and extracting content
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+- name : copying roboshop config in nginx
+  ansible.builtin.template:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: start enable and restart service
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
+    
+
+
+

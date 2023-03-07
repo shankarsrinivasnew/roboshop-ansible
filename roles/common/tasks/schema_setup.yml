@@ -1,0 +1,50 @@
+# schema_setup () {
+
+# if [ "${schema_type}" == "mongo" ]; then
+
+# print_header "loading mogo repositories"
+# cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+# yum install mongodb-org-shell -y &>>${log_file}
+# status_check $?
+
+# print_header "loading schema"
+# mongo --host mongodb.sstech.store </app/schema/$component.js &>>${log_file}
+# status_check $?
+
+# elif [ "${schema_type}" == "mysql" ]; then
+
+# print_header "installing mysql"
+# yum install mysql -y &>>${log_file}
+# status_check $?
+
+# print_header "loading mysql schema"
+# mysql -h mysql.sstech.store -uroot -p${mysql_root_password} < /app/schema/$component.sql &>>${log_file}
+# status_check $?
+# fi
+# }
+
+- name: mongodb schema
+  when: schema_type == "mongo"
+  block:
+    - name: copying monogodb repositories
+      ansible.builtin.copy:
+        src: mongodb.repo
+        dest: /etc/yum.repos.d/mongodb.repo
+{{ lookup ('amazon.aws.aws_ssm', '{{var.env}}.{{var.component}}.catalogue_port', region='us-east-1') }}
+    - name: install monodb client
+      ansible.builtin.yum:
+        name: mongodb-org-shell
+
+    - name: loading mongodb schema
+      ansible.builtin.shell: mongo --host dev-mongodb.sstech.store </app/schema/{{component}}.js
+
+- name: mysql schema
+  when: schema_type == "mysql"
+  block:
+    - name: install mysql
+      ansible.builtin.yum:
+        name: mysql
+        state: installed
+    - name: loading mysql schema
+      ansible.builtin.shell: mysql -h dev-mysql.sstech.store -uroot -pRoboShop@1 < /app/schema/{{component}}.sql
+

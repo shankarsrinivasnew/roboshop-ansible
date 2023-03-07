@@ -1,0 +1,39 @@
+# python (){
+# print_header "Installing python" 
+# yum install python36 gcc python3-devel -y  &>>${log_file}
+# status_check $?
+
+# app_user_setup
+
+# print_header "installing dependencies"
+# pip3.6 install -r requirements.txt  &>>${log_file}
+# status_check $?
+
+# systemd_setup
+# }
+
+- name: installing python
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: installed
+
+- name: app user setup
+  ansible.builtin.import_tasks:
+    file: app_user.yml
+
+- name: installing dependencies python
+  ansible.builtin.pip:
+    requirements: /app/requirements.txt
+    executable: pip3.6
+
+- name: Schema Setup
+  ansible.builtin.import_tasks:
+    file: schema_setup.yml
+  when: schema_type is defined
+
+- name: systemd setup
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml

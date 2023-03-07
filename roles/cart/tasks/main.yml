@@ -1,0 +1,8 @@
+# source common.sh
+# component=cart
+# nodejs
+
+- name : cart component
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
