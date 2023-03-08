@@ -1,0 +1,4 @@
+- name : debug
+  ansible.builtin.imports:
+    file : server.yml
+  when : prometheus_server
