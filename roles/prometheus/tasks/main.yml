@@ -1,4 +1,4 @@
 - name : importer-prom
   ansible.builtin.import_tasks:
     file : server.yml
-   when : prometheus_server
+  when : prometheus_server
