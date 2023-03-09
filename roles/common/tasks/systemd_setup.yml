@@ -30,7 +30,7 @@
     replace: 'roboshop123'
   when: component == "payment" or component == "dispatch"
 
-- name : starting systemd service of ((component))
+- name : starting systemd service of {{component}}
   ansible.builtin.systemd:
     name: "{{component}}"
     state: restarted
