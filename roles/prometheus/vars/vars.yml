@@ -1,0 +1,12 @@
+components:
+  - {name: "cart" , serrvice: "cart"}
+  - {name: "user" , serrvice: "user"}
+  - {name: "catalogue" , serrvice: "catalogue"}
+  - {name: "shipping" , serrvice: "shipping"}
+  - {name: "payment" , serrvice: "payment"}
+  - {name: "dispatch" , serrvice: "dispatch"}
+  - {name: "frontend" , serrvice: "nginx"}
+
+alert_files:
+  - alerts.yml
+  - service-down-alerts.yml
