@@ -1,11 +1,11 @@
 components:
-  - {name: "cart" , serrvice: "cart"}
-  - {name: "user" , serrvice: "user"}
-  - {name: "catalogue" , serrvice: "catalogue"}
-  - {name: "shipping" , serrvice: "shipping"}
-  - {name: "payment" , serrvice: "payment"}
-  - {name: "dispatch" , serrvice: "dispatch"}
-  - {name: "frontend" , serrvice: "nginx"}
+  - {name: "cart" , service: "cart"}
+  - {name: "user" , service: "user"}
+  - {name: "catalogue" , service: "catalogue"}
+  - {name: "shipping" , service: "shipping"}
+  - {name: "payment" , service: "payment"}
+  - {name: "dispatch" , service: "dispatch"}
+  - {name: "frontend" , service: "nginx"}
 
 alert_files:
   - alerts.yml
