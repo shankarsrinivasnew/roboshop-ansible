@@ -29,5 +29,5 @@
     state : restarted
     enabled : true
 
-- name : checking prometeheus started or not
+- name : checking alertmanager started or not
   ansible.builtin.shell: netstat -anptlu | grep 9093
