@@ -10,8 +10,8 @@ receivers:
   - to: 'shankarsrinivasnew@gmail.com'
     from: 'shankarsrinivasnew@gmail.com'
     smarthost: "email-smtp.us-east-1.amazonaws.com:587"
-    auth_username: "{{ses-auth-username}}"
-    auth_password: "{{ses-auth-password}}"
+    auth_username: "{{ses_auth_username}}"
+    auth_password: "{{ses_auth_password}}"
     require_tls: true
 inhibit_rules:
   - source_match:
