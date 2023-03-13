@@ -17,3 +17,17 @@
 
 - name : checking prometeheus started or not
   ansible.builtin.shell: netstat -anptlu | grep 9090
+
+- name : update alert manager configuration
+  ansible.builtin.template:
+    src : alermanager.yml
+    dest : /opt/alertmanager/alertmanager.yml
+
+- name : restart alert manager 
+  ansible.builtin.systemd:
+    name : alertmanager
+    state : restarted
+    enabled : true
+
+- name : checking prometeheus started or not
+  ansible.builtin.shell: netstat -anptlu | grep 9093
