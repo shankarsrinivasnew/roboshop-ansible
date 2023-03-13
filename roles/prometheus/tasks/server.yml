@@ -20,7 +20,7 @@
 
 - name : update alert manager configuration
   ansible.builtin.template:
-    src : alermanager.yml
+    src : alertmanager.yml
     dest : /opt/alertmanager/alertmanager.yml
 
 - name : restart alert manager 
