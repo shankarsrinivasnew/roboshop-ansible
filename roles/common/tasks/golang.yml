@@ -14,6 +14,9 @@
 # systemd_setup
 # }
 
+- name: updating rpm
+  ansible.builtin.shell: yum update rpm -y
+
 - name: installing golang
   ansible.builtin.yum:
     name: golang
