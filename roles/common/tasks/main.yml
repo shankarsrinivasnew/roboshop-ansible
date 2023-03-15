@@ -6,3 +6,9 @@
     name : prometheus
     tasks_from: exporter
   when : node_exporter
+
+- name : calling file beat installtion role wherever required
+  ansible.builtin.import_role:
+    name : elk
+    tasks_from: filebeat
+  when : filebeat

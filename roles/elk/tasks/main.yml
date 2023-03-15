@@ -1,0 +1,9 @@
+- name : load logstash config
+  ansible.builtin.import_tasks:
+    file: logstash.yml
+  when: elk
+  
+- name : load filebeat config
+  ansible.builtin.import_tasks:
+    file: filebeat.yml
+  when: filebeat
