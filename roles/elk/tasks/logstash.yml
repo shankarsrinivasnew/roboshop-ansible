@@ -3,11 +3,11 @@
     src: logstash.conf
     dest: /etc/logstash/conf.d/logstash.conf
   
-- name : start logstash
+- name : restating logstash
   ansible.builtin.systemd:
     name: logstash
     state: restarted
     enabled: true
 
 - name: checking if logstash running
-  ansible.builtin.shell: netstat -antplu | grep 5044
+  ansible.builtin.shell: sleep 60; netstat -antplu | grep 5044
