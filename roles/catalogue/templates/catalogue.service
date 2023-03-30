@@ -3,8 +3,6 @@ Description = Catalogue Service
 
 [Service]
 User=roboshop
-#Environment=MONGO={{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.mongo', region='us-east-1') }}
-#Environment=MONGO_URL="{{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.mongo_url', region='us-east-1') }}"
 Environment=DOCUMENTDB={{ lookup ('amazon.aws.aws_ssm', '{{env}}.{{component}}.mongo', region='us-east-1') }}
 Environment=MONGO_URL="{{ lookup ('amazon.aws.aws_ssm', '{{env}}.docdb_url_{{component}}', region='us-east-1') }}"
 ExecStart=/bin/node /app/server.js
@@ -12,3 +10,5 @@ SyslogIdentifier=catalogue
 
 [Install]
 WantedBy=multi-user.target
+
+docdb_url_catalogue
