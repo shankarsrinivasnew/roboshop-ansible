@@ -19,6 +19,7 @@
       - gcc
       - python3-devel
     state: installed
+    disable_gpg_check : true
 
 - name: app user setup
   ansible.builtin.import_tasks:
