@@ -12,6 +12,9 @@
 # systemd_setup
 # }
 
+- name: updating rpm
+  ansible.builtin.shell: yum update rpm -y
+
 - name: installing python
   ansible.builtin.yum:
     name:
@@ -19,7 +22,6 @@
       - gcc
       - python3-devel
     state: installed
-    disable_gpg_check : true
 
 - name: app user setup
   ansible.builtin.import_tasks:
