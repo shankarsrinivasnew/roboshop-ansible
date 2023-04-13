@@ -15,19 +15,24 @@
 
 # }
 
-- name: installing maven
+# - name: installing maven
+#   ansible.builtin.yum:
+#     name: maven
+#     state: installed
+
+- name: Install Java
   ansible.builtin.yum:
-    name: maven
+    name: java-17-openjdk
     state: installed
 
 - name: app_user_setup
   ansible.builtin.import_tasks:
     file: app_user.yml
 
-- name: installing maven dependencies
-  ansible.builtin.shell: mvn clean package; mv target/{{component}}-1.0.jar {{component}}.jar
-  args:
-    chdir: /app
+# - name: installing maven dependencies
+#   ansible.builtin.shell: mvn clean package; mv target/{{component}}-1.0.jar {{component}}.jar
+#   args:
+#     chdir: /app
 
 - name : schema setup
   ansible.builtin.import_tasks:

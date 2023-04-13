@@ -26,10 +26,10 @@
   ansible.builtin.import_tasks:
     file: app_user.yml
 
-- name: installing dependencies golong
-  ansible.builtin.shell: go mod init dispatch; go get; go build
-  args:
-    chdir: /app
+# - name: installing dependencies golong
+#   ansible.builtin.shell: go mod init dispatch; go get; go build
+#   args:
+#     chdir: /app
 
 - name : systemd setup
   ansible.builtin.import_tasks:

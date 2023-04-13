@@ -32,9 +32,9 @@
   ansible.builtin.import_tasks:
     file: app_user.yml
 
-- name : setup nodes dependencies
-  community.general.npm:
-    path: /app
+# - name : setup nodes dependencies
+#   community.general.npm:
+#     path: /app
 
 - name : schema setup
   ansible.builtin.import_tasks:

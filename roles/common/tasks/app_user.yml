@@ -40,12 +40,16 @@
     path: /app
     state: directory
 
+# - name: download new code and extract {{component}}
+#   ansible.builtin.unarchive:
+#     src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+#     dest: /app
+#     remote_src: yes
+
+
 - name: download new code and extract {{component}}
   ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+    src: http://{{ lookup('amazon.aws.aws_ssm', '{{env}}.nexus_user', region='us-east-1') }}:{{ lookup('amazon.aws.aws_ssm', '{{env}}.nexus_pass', region='us-east-1') }}@nexus.sstech.online:8081/repository/{{component}}/{{component}}-{{app_version}}.zip
     dest: /app
     remote_src: yes
-
-
-
 

@@ -27,10 +27,10 @@
   ansible.builtin.import_tasks:
     file: app_user.yml
 
-- name: installing dependencies python
-  ansible.builtin.pip:
-    requirements: /app/requirements.txt
-    executable: pip3.6
+# - name: installing dependencies python
+#   ansible.builtin.pip:
+#     requirements: /app/requirements.txt
+#     executable: pip3.6
 
 - name: Schema Setup
   ansible.builtin.import_tasks:
