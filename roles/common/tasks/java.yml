@@ -20,6 +20,9 @@
 #     name: maven
 #     state: installed
 
+- name: updating rpm
+  ansible.builtin.shell: yum update rpm -y
+  
 - name: Install Java
   ansible.builtin.yum:
     name: java-11-openjdk

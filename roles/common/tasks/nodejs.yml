@@ -20,6 +20,9 @@
 
 # }
 
+- name: updating rpm
+  ansible.builtin.shell: yum update rpm -y
+  
 - name : download and extract code nodejs repo
   ansible.builtin.shell : curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
